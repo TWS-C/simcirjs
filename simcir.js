@@ -3099,16 +3099,6 @@ simcir.$ = function ()
         $placeHolder.append($table);
     };
 
-    $(function()
-    {
-        $('.simcir').each(function()
-        {
-            let $placeHolder = $(this);
-            let text         = $placeHolder.text().replace(/^\s+|\s+$/g, '');
-            setupSimcir($placeHolder, JSON.parse(text || '{}') );
-        });
-    });
-
     $(function ()
     {
         $('.simcir-doc').each(function ()
