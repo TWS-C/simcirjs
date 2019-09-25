@@ -439,36 +439,42 @@ simcir.$ = initSimcirUtilityFunctions();
         });
     };
 
+    /**
+     * @param deviceDef
+     * @param headless
+     * @param scope
+     */
     let createDevice = function (deviceDef, headless, scope)
     {
         headless = headless || false;
         scope    = scope || null;
-        let $dev = createSVGElement('g');
-        if (!headless)
-        {
-            $dev.attr('class', 'simcir-device');
-        }
+
+        let $device = createSVGElement('g');
+
         controller(
-            $dev,
+            $device,
             createDeviceController(
             {
-                $ui:       $dev,
+                $ui:       $device,
                 deviceDef: deviceDef,
                 headless:  headless,
                 scope:     scope,
                 doc:       null,
             })
         );
+
         let factory = factories[deviceDef.type];
         if (factory)
         {
-            factory(controller($dev));
+            factory(controller($device));
         }
+
         if (!headless)
         {
-            controller($dev).createUI();
+            controller($device).createUI();
         }
-        return $dev;
+
+        return $device;
     };
 
     let createDeviceController = function (device)
@@ -617,8 +623,12 @@ simcir.$ = initSimcirUtilityFunctions();
 
         let createUI = function ()
         {
-
             device.$ui.attr('class', 'simcir-device');
+            if (device.deviceDef.movable === false)
+            {
+                device.$ui.addClass('simcir-device-immovable');
+            }
+
             device.$ui.on('deviceSelect', function ()
             {
                 if (selected)
@@ -1787,6 +1797,12 @@ simcir.$ = initSimcirUtilityFunctions();
         let beginMoveDevice = function (event, $target)
         {
             let $dev = $target.closest('.simcir-device');
+
+            if ($dev.hasClass('simcir-device-immovable'))
+            {
+                return;
+            }
+
             let pos  = transform($dev);
             if (!controller($dev).isSelected())
             {
