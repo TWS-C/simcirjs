@@ -17,6 +17,7 @@ Web browser that supports HTML5
 README.txt           -- this file
 simcir.js            -- Simcir core javascript (required)
 simcir.css           -- Simcir core stylesheet (required)
+simcir-utility.js    -- Simcir utility functions (required)
 simcir-basicset.js   -- Simcir basicset javascript (optional)
 simcir-basicset.css  -- Simcir basicset stylesheet (optional)
 simcir-library.js    -- Simcir library javascript
