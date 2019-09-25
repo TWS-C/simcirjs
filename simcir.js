@@ -20,9 +20,9 @@ let simcir = {};
 
 simcir.$ = initSimcirUtilityFunctions();
 
-!function ($s)
+!function (simcir)
 {
-    let $ = $s.$;
+    let $ = simcir.$;
 
     let createSVGElement = function (tagName)
     {
@@ -745,12 +745,12 @@ simcir.$ = initSimcirUtilityFunctions();
                 controller($devMap[devId]).getInputs()[index] :
                 controller($devMap[devId]).getOutputs()[index];
         };
-        $.each(data.devices, function (i, deviceDef)
+        $.each(data.devices, function (index, deviceDefinition)
         {
-            let $dev = createDevice(deviceDef, headless, scope);
-            transform($dev, deviceDef.x, deviceDef.y);
-            $devices.push($dev);
-            $devMap[deviceDef.id] = $dev;
+            let $device = createDevice(deviceDefinition, headless, scope);
+            transform($device, deviceDefinition.x, deviceDefinition.y);
+            $devices.push($device);
+            $devMap[deviceDefinition.id] = $device;
         });
         $.each(data.connectors, function (i, conn)
         {
@@ -1365,15 +1365,18 @@ simcir.$ = initSimcirUtilityFunctions();
 
     let createWorkspace = function (data)
     {
-        data = $.extend({
-            width:       400,
-            height:      200,
-            showToolbox: true,
-            editable:    true,
-            toolbox:     defaultToolbox,
-            devices:     [],
-            connectors:  [],
-        }, data);
+        data = $.extend(
+            {
+                width:       400,
+                height:      200,
+                showToolbox: true,
+                editable:    true,
+                toolbox:     defaultToolbox,
+                devices:     [],
+                connectors:  [],
+            },
+            data
+        );
 
         let scope = {};
 
@@ -2117,7 +2120,7 @@ simcir.$ = initSimcirUtilityFunctions();
     });
 
     $.extend(
-        $s,
+        simcir,
         {
             registerDevice:   registerDevice,
             clearSimcir:      clearSimcir,

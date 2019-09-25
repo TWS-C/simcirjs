@@ -923,27 +923,20 @@ function initSimcirUtilityFunctions()
 
     let $ = function (target)
     {
-
         if (typeof target == 'function')
         {
-
             // ready
             return $(document).on('DOMContentLoaded', target);
-
         }
         else if (typeof target == 'string')
         {
-
             if (target.charAt(0) == '<')
             {
-
                 // dom creation
                 return html(target);
-
             }
             else
             {
-
                 // query
                 let childNodes = document.querySelectorAll(target);
                 let elms       = [];
@@ -954,11 +947,9 @@ function initSimcirUtilityFunctions()
                 elms.__proto__ = fn;
                 return elms;
             }
-
         }
         else if (typeof target == 'object' && target != null)
         {
-
             if (target.__proto__ == fn)
             {
                 return target;
@@ -970,11 +961,9 @@ function initSimcirUtilityFunctions()
                 elms.__proto__ = fn;
                 return elms;
             }
-
         }
         else
         {
-
             let elms       = [];
             elms.__proto__ = fn;
             return elms;
